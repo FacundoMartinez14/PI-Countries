@@ -17,7 +17,9 @@ router.post('/', async (req, res) =>{
     })
     let arr = []
     for(let i = 0; i < name.length; i++){
-      const country = await Country.findOne({where:{ name: name[i]}});
+      const country = await Country.findOne({where:{ 
+        [Op.or]: [{name: name[i]}, {traduccion: name[i]}]
+      }});
       arr.push(country);
     }
     activity[0].addCountries(arr);

@@ -11,7 +11,19 @@ router.get('/', async (req, res) =>{
         try{
             const countries = await Country.findAll({
                 where:{
-                    name:{[Op.iLike]: `%${name}%`}
+                    [Op.or]: [
+                        {
+                          name: {
+                            [Op.iLike]: `${name}%`
+                          }
+                        },
+                        {
+                            traduccion: {
+                            [Op.iLike]: `${name}%`
+                          }
+                        }
+                      ]
+                    
                 },
                 include: Activities
             })
