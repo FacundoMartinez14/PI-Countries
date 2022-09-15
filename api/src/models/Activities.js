@@ -3,22 +3,19 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
     sequelize.define('activities', {
-        id:{
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
-          primaryKey: true
-        },
         nombre:{
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
         },
         dificultad:{
-          type: DataTypes.INTEGER
+          type: DataTypes.ENUM('1', '2', '3', '4', '5')
         },
         duracion:{
-          type: DataTypes.FLOAT
+          type: DataTypes.TEXT
         },
         temporada:{
           type: DataTypes.ENUM('Verano', 'Otoño', 'Invierno', 'Primavera')
-        } 
-      });
+        },
+        
+      },{ timestamps: true, createdAt: "creado", updatedAt: false }
+      );
 };

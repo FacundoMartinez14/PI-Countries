@@ -14,16 +14,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    imagen:{
+    traduccion:{
+      type: DataTypes.STRING, 
+    },
+    flag:{
       type: DataTypes.STRING,
       allowNull: false
     },
-    continente:{
+    continent:{
       type: DataTypes.STRING,
       allowNull: false
     },
     capital:{
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     },
     subregion:{
@@ -32,9 +35,10 @@ module.exports = (sequelize) => {
     area:{
       type: DataTypes.INTEGER
     },
-    poblacion:{
+    population:{
       type: DataTypes.INTEGER
     }
-  });
+  },{ timestamps: true, createdAt: "creado", updatedAt: false }
+  );
 };
 
