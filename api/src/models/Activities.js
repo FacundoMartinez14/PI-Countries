@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
           type: DataTypes.TEXT
         },
         temporada:{
-          type: DataTypes.ENUM('Verano', 'Otoño', 'Invierno', 'Primavera')
+          type: DataTypes.ENUM('verano', 'otoño', 'invierno', 'primavera')
         },
         
       },{ timestamps: true, createdAt: "creado", updatedAt: false }

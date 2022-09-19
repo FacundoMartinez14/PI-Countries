@@ -10,6 +10,7 @@ router.get('/', async (req, res) =>{
     //si name existe, y ademas tiene un contenido hacemos una busqueda en la 
     //base de datos 
     if( name && name.length > 0) {
+        console.log('entre por query')
         try{
             const countries = await Country.findAll({
                 where:{
@@ -38,7 +39,7 @@ router.get('/', async (req, res) =>{
         try{
             //en caso que no se nos pase nada por query 
             //pedimos todos los paises
-            console.log('entro aca')
+            console.log('pase el query de largo')
             const thecountries = await Country.findAll({
                 include: Activities
             });
