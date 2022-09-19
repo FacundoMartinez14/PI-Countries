@@ -1,9 +1,32 @@
 import './App.css';
+import Landing from './components/Landing/Landing';
+import NavBar from './components/NavBar/Nav-bar';
+import Countries from './components/Countries/Countries';
+import CrearActividad from './components/Actividad/CrearActividad';
+import About from './components/About/About';
+import Filter from './components/Filters/Filters';
+import {Route} from 'react-router-dom';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Countries</h1>
+          <Route exact path="/">
+            <Landing/>
+          </Route>
+          <Route path={['/countries', '/activities', '/about']}>
+            <NavBar />
+          </Route>  
+          <Route path="/countries">
+            <Filter />
+            <Countries />
+          </Route>
+          <Route path="/activities">
+            <CrearActividad />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
     </div>
   );
 }

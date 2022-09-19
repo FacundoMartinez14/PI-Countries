@@ -1,14 +1,20 @@
 const { Router } = require('express');
 const axios = require("axios");
 const router = Router();
-const { Country, Activities } = require('../db');
+const { Country, Activities, Op } = require('../db');
 
+
+//hacemos un post a la ruta '/activities/
 router.post('/', async (req, res) =>{
+  //recibimos por body informacion 
   const { name, nombre, dificultad, duracion, temporada} = req.body;
   if( !name || !nombre || !dificultad || !duracion || !temporada){
+    //de no tener la informacion necesaria para crear la actividad (modelo activities)
       res.status(404).send("No se recibieron los parametros necesarios");
   }
   try{
+    //si la informacion es la necesaria, buscamos si la actividad existe, caso contrario 
+    //se crea una nueva
     const activity = await Activities.findOrCreate({
       where:{
         nombre: nombre
@@ -16,12 +22,27 @@ router.post('/', async (req, res) =>{
       defaults: req.body
     })
     let arr = []
+    //por el argumento 'name' del body, podemos recibir un arreglo de paises a los que 
+    //hay que asignarles las actividades, por lo que tenemos que tenemos que hacer un ciclo for
+    //para conseguir los respectivos paises
     for(let i = 0; i < name.length; i++){
       const country = await Country.findOne({where:{ 
-        [Op.or]: [{name: name[i]}, {traduccion: name[i]}]
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `${name[i]}%`
+            }
+          },
+          {
+              traduccion: {
+              [Op.iLike]: `${name[i]}%`
+            }
+          }
+        ]
       }});
       arr.push(country);
     }
+    //luego se le asocia la actividad a cada pais
     activity[0].addCountries(arr);
     
     res.json('arr')
