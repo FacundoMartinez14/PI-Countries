@@ -10,7 +10,7 @@ export default function NavBar(){
             <br />
             <Link to='/about'>About</Link>
             <br />
-            <Link to='/countries'>Countries</Link>
+            <Link to='/countries'>Home</Link>
         </div>
     )
 }

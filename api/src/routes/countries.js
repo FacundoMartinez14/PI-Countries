@@ -6,7 +6,7 @@ const { Op, Country, Activities } = require('../db');
 
 //hacemos un get a la ruta '/countries/'
 router.get('/', async (req, res) =>{
-    const {name} = req.query;
+    const {name, activity} = req.query;
     //si name existe, y ademas tiene un contenido hacemos una busqueda en la 
     //base de datos 
     if( name && name.length > 0) {

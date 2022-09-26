@@ -3,12 +3,33 @@ const axios = require("axios");
 const router = Router();
 const { Country, Activities, Op } = require('../db');
 
+router.get('/', async (req, res) => {
+  const {nombre} = req.query;
+  try{
+    if(nombre && nombre.length > 0){
+      const activity = await Activities.findAll({
+        where:{
+          nombre: {
+            [Op.iLike]: `%${nombre}%`
+          }
+        },
+        include: Country
+      })
+      res.status(200).json(activity)
+    }else{
+      const activity = await Activities.findAll({include: Country});
+      res.status(200).json(activity);
+    }
+  }catch(e){
+    console.log(e);
+  }
 
+})
 //hacemos un post a la ruta '/activities/
 router.post('/', async (req, res) =>{
   //recibimos por body informacion 
   const { name, nombre, dificultad, duracion, temporada} = req.body;
-  if( !name || !nombre || !dificultad || !duracion || !temporada){
+  if( !name || !nombre || !dificultad || duracion.length == 0 || !temporada){
     //de no tener la informacion necesaria para crear la actividad (modelo activities)
       res.status(404).send("No se recibieron los parametros necesarios");
   }
@@ -45,7 +66,7 @@ router.post('/', async (req, res) =>{
     //luego se le asocia la actividad a cada pais
     activity[0].addCountries(arr);
     
-    res.json('arr')
+    res.json('Activididad creada correctamente.')
   }catch(e){
     console.log(e)
   }

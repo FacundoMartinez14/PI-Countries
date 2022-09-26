@@ -5,6 +5,8 @@ import Countries from './components/Countries/Countries';
 import CrearActividad from './components/Actividad/CrearActividad';
 import About from './components/About/About';
 import Filter from './components/Filters/Filters';
+import Paginado from './components/Countries/Paginado';
+import { Detail } from './components/Countries/Detail';
 import {Route} from 'react-router-dom';
 
 
@@ -15,9 +17,9 @@ function App() {
             <Landing/>
           </Route>
           <Route path={['/countries', '/activities', '/about']}>
-            <NavBar />
+            {/* <NavBar /> */}
           </Route>  
-          <Route path="/countries">
+          <Route exact path="/countries">
             <Filter />
             <Countries />
           </Route>
@@ -26,6 +28,9 @@ function App() {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/countries/:id">
+            <Detail />
           </Route>
     </div>
   );
