@@ -10,7 +10,6 @@ export default function Filter(){
     const filteredd = useSelector(state => state.filtered)
     const order = useSelector( state => state.orden)
     const pivot = useSelector( state => state.pivot)
-    const prior = useSelector( state => state.prioridad)
 
     //usamos handleChange para el dispatch para que asi, se renderize en el momento del click en el input
     // accedemos a la propiedad checked del checkbox, asi filtramos lo que necesitamos
@@ -45,9 +44,6 @@ export default function Filter(){
             dispatch(prioridad(''))
         }
         dispatch(forcePage(1))
-    }
-    const loseFocus = (e) =>{
-            e.target.checked = false
     }
     const orderByName = (e) =>{
         if( order === 'ordenAZ'){

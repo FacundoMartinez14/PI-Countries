@@ -18,8 +18,8 @@
     border-radius: 5px;
     border-color: #fefae0;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     color: #fefae0;
     font-family: 'Roboto', sans-serif;
 }

@@ -228,11 +228,11 @@ export default function CrearActividad() {
             <input type="submit" value="Enviar" />
           </div>
         </form>
-        <div className="post">
+        <div >
           {post ? (
-            <div>
-              <h2>{post}</h2>{" "}
-              <h3>Puedes buscar tu actividad en el filtro de actividades.</h3>
+            <div >
+              <h2 className="post">{post}</h2>
+              <h3 className="post">Puedes buscar tu actividad en el filtro de actividades.</h3>
               <br />
               <button onClick={handleClick}>Aceptar</button>
             </div>

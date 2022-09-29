@@ -57,7 +57,7 @@
 .hs{
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   width: 50%;
 }
 .search-input{
@@ -80,7 +80,7 @@
 }
 .min{
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 50%;
 }
 .min > input{
@@ -95,7 +95,7 @@
 }
 .days{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     width: 50%;  
 }
 .days > input{
@@ -126,4 +126,9 @@
 }
 .temporada > select {
   width: 35%;
+}
+.post{
+  color: #376e37;
+  font-family: 'Roboto', sans-serif;  
+  font-weight: 700;
 }

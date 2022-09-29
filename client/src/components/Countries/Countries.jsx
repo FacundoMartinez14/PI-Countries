@@ -33,7 +33,11 @@ export default function Countries(){
     let currentPosts = (activities.length > 0 ? activities.slice(firstIndex, lastIndex) : filtered.slice(firstIndex, lastIndex))
 //usamos el handleChange para que se haga un search a medida que se va escribiendo
     const handleChange = (e) => {
-        dispatch(search(e.target.value));
+        if(e.target.value.length > 0){
+            dispatch(search(e.target.value));
+        }else{
+            dispatch(getCountries())
+        }
     }
     const handleClick = (e) => {
         if(prior === 'activities'){
@@ -69,14 +73,21 @@ export default function Countries(){
     
     return(
         <div>
+            {console.log(currentPosts)}
             <div className='buscador'>
                 <label htmlFor="search">Buscador</label>
                 <input type="text" name='search' id='search' onInput={handleChange} placeholder = 'Buscar...' autoComplete='off'/>
             </div>
                  <div className='filtrados'>
                     <div className='paginado'>
-                        <button name='anterior' onClick={handleClick}>Anterior</button>
-                        <button name='siguiente' onClick={handleClick}>Siguiente</button>
+                        
+                        {currentPosts.length <= 9 && prior === 'activity'?
+                            null
+                            :<>
+                            <button name='anterior' onClick={handleClick}>Anterior</button>
+                            <button name='siguiente' onClick={handleClick}>Siguiente</button>
+                        </>}
+                            
                         <br />
                         <Paginado array = {activities.length > 0 ? activities : filtered } currentPage = {page} paginate = {paginate} length={activities.length > 0 ? activities.length : filtered.length  }/>
                     </div>
