@@ -1,19 +1,22 @@
 import {React} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeActivity } from '../../redux/actions';
+import { removeCountryFromActivity } from '../../redux/actions';
+import './RemoveCountry.css'
 
 export default function RemoveCountry({name, flag}){
     const dispatch = useDispatch()
     const addcountry = useSelector(state => state.addCountry)
     const handleClick = (e) =>{
         const removedCountry = addcountry.filter( e => e.name !== name);
-        dispatch(removeActivity(removedCountry));
+        dispatch(removeCountryFromActivity(removedCountry));
     }
     return(
         <>
-            <h1>{name}</h1>
-            <img src={flag} alt="flag" />
-            <button onClick={handleClick}> - </button>
+            <div className='paises-seleccionados'>
+                <h3>{name}</h3>
+                <img src={flag} alt="flag" />
+                <button onClick={handleClick}> - </button>
+            </div>
         </>
 
     )

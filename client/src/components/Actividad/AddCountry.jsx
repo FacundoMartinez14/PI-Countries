@@ -1,7 +1,7 @@
 import {React, useRef, useEffect} from 'react';
 import { addActivity } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import './AddCountry.css'
 export default function AddCountry({name, flag, id}){
     const dispatch = useDispatch()
     const button = useRef();
@@ -23,9 +23,11 @@ export default function AddCountry({name, flag, id}){
     }
     return(
         <>
-            <h3>{name}</h3>
-            <img src={flag} alt="flag" />
-            <button onClick={handleClick} ref={button}>+</button>
+            <div className='paises-buscados'>
+                <h3>{name}</h3>
+                <img src={flag} alt="flag" />
+                <button onClick={handleClick} ref={button}>+</button>    
+            </div>
         </>
     )
 }

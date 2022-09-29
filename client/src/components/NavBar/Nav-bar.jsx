@@ -4,13 +4,10 @@ import './Nav-bar.css'
 
 export default function NavBar(){
     return(
-        <div>
-            <h3>NavBar</h3>
-            <Link to='/activities'>Crear Actividad</Link>
-            <br />
-            <Link to='/about'>About</Link>
-            <br />
-            <Link to='/countries'>Home</Link>
+        <div className='nav'>
+            <Link className='nav-item' to='/activities'>Crear Actividad</Link>
+            <Link className='nav-item' to='/about'>About</Link>
+            <Link className='nav-item' to='/countries'>Home</Link>
         </div>
     )
 }

@@ -1,69 +1,53 @@
 import {React} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterAction, prioridad, getActivity, sort, forcePage, orden } from '../../redux/actions';
-
+import { filterAction, prioridad, getActivity, sort, forcePage, orden, firstFilter, addFilter, removeFilter, clean } from '../../redux/actions';
+import { az, za, populationAsc, populationDes } from '../Controllers/Controllers';
+import './Filters.css'
 //componente encargado de los filtros
 export default function Filter(){
     const dispatch = useDispatch();
     let countries = useSelector( state => state.countries)
+    const filteredd = useSelector(state => state.filtered)
     const order = useSelector( state => state.orden)
-    //usamos handleChange para el dispatch para que asi, se renderize en el momento del click en el input
-    let handleChange = (e) =>{
-        const valor = e.target.value
-        if(valor === 'todos'){
-            dispatch(filterAction(countries))
-            dispatch(prioridad('filter'))
-        }else{
-            const filtered = countries.filter( (e) => e.continent === valor)
-            dispatch(prioridad('filter'))
-            dispatch(filterAction(filtered))
-            
-        }
-        dispatch(forcePage(1))
-    }
-    const handleInput = (e) =>{
-        if(e.target.type === 'radio'){
-            dispatch(prioridad('activity'));
-            const activities = countries.filter( e => e.activities.length > 0)
-            dispatch(filterAction(activities))
-            dispatch(forcePage(1))
-        }else{
-            if(e.target.value.length > 0){
-                dispatch(getActivity(e.target.value))
-                const activities = countries.filter( e => e.activities.length > 0);
-                const activity = activities.filter( c => c.activities.find(h => h.nombre.includes(e.target.value)))
-                console.log(activity)
-                dispatch(filterAction(activity))
-                dispatch(prioridad('activity'));
+    const pivot = useSelector( state => state.pivot)
+    const prior = useSelector( state => state.prioridad)
 
+    //usamos handleChange para el dispatch para que asi, se renderize en el momento del click en el input
+    // accedemos a la propiedad checked del checkbox, asi filtramos lo que necesitamos
+    let handleChange = (e, id) =>{
+        let checked = document.getElementById(id).checked;
+        const valor = e.target.value
+        
+        if(checked){
+            const filtered = countries.filter( (e) => e.continent === valor)
+            if(pivot === 0){               
+                    dispatch(firstFilter(filtered))
             }else{
-                dispatch(prioridad(''))
+                    dispatch(addFilter(filtered))                
+            }            
+        }else{
+            const remove = filteredd.filter( e => e.continent !== valor );
+            dispatch(removeFilter(remove));
+            if(remove.length === 0){
+                dispatch(filterAction(countries))
             }
         }
         dispatch(forcePage(1))
     }
+    const hendleClick = (e) =>{
+        let checked = document.getElementById(e.target.id).checked;
+        if(checked){
+            dispatch(prioridad('activity'));
+            dispatch(getActivity())
+            dispatch(forcePage(1))
+        }else{
+            dispatch(clean())
+            dispatch(prioridad(''))
+        }
+        dispatch(forcePage(1))
+    }
     const loseFocus = (e) =>{
-        e.target.checked = false
-    }
-    const az = (a, b) =>{
-        if ( a.traduccion.toLowerCase() < b.traduccion.toLowerCase()) return -1;
-        if ( a.traduccion.toLowerCase() > b.traduccion.toLowerCase()) return 1;
-        return 0
-    }
-    const za = (a, b) =>{
-        if ( a.traduccion.toLowerCase() < b.traduccion.toLowerCase()) return 1;
-        if ( a.traduccion.toLowerCase() > b.traduccion.toLowerCase()) return -1;
-        return 0
-    }
-    const populationAsc = (a, b) =>{
-        if ( a.population < b.population) return -1;
-        if ( a.population> b.population) return 1;
-        return 0
-    }
-    const populationDes = (a, b) =>{
-        if ( a.population < b.population) return 1;
-        if ( a.population > b.population) return -1;
-        return 0
+            e.target.checked = false
     }
     const orderByName = (e) =>{
         if( order === 'ordenAZ'){
@@ -87,39 +71,53 @@ export default function Filter(){
     }
     return(
         <>
-            <h3>Filters</h3>
-            <form >
-                    <input type="radio" name='continents' id='todos' value='todos' onChange={handleChange} onBlur={loseFocus} />
-                    <label htmlFor="continets" id='todos' >Todos</label>
-                <fieldset>
+            <form className='filters'>
+                <fieldset >
                         <legend>Continents</legend>
-                    <input type="radio" name="continents" id="oceania" value="Oceania"  onChange={handleChange} onBlur={loseFocus}/>
-                    <label htmlFor="oceania">Oceania</label>
+                        <div>
+                            <input type="checkbox" name="oceania" id="oceania" value="Oceania"  onChange={(e) => handleChange(e, 'oceania')}  />
+                            <label htmlFor="oceania">Oceania</label>
+                        </div>
                     <br />
-                    <input type="radio" name="continents" id="africa" value="Africa" onChange={handleChange} onBlur={loseFocus}/>
-                    <label htmlFor="africa">Africa</label>
+                        <div>
+                            <input type="checkbox" name="africa" id="africa" value="Africa" onChange={(e) => handleChange(e, 'africa')}  />
+                            <label htmlFor="africa">Africa</label>
+                        </div>
                     <br />
-                    <input type="radio" name="continents" id="europa" value="Europe" onChange={handleChange} onBlur={loseFocus}/>
-                    <label htmlFor="europa">Europa</label>
+                        <div>
+                            <input type="checkbox" name="europa" id="europa" value="Europe" onChange={(e) => handleChange(e, 'europa')}  />
+                            <label htmlFor="europa">Europa</label>
+                        </div>
                     <br />
-                    <input type="radio" name="continents" id="asia" value="Asia" onChange={handleChange} onBlur={loseFocus}/>
-                    <label htmlFor="asia">Asia</label>
+                        <div>
+                            <input type="checkbox" name="asia" id="asia" value="Asia" onChange={(e) => handleChange(e, 'asia')}  />
+                            <label htmlFor="asia">Asia</label>
+                            </div>
                     <br />
-                    <input type="radio" name="continents" id="america" value="Americas" onChange={handleChange} onBlur={loseFocus}/>
-                    <label htmlFor="america">America</label>
+                        <div>
+                            <input type="checkbox" name="america" id="america" value="Americas" onChange={(e) => handleChange(e, 'america')} />
+                            <label htmlFor="america">America</label>
+                        </div>
+                    <br />
+                        <div>
+                            <input type="checkbox" name="antarctica" id="antartida" value="Antarctic" onChange={(e) => handleChange(e, 'antartida')} />
+                            <label htmlFor="antartica">Antartida</label>
+                        </div>
                 </fieldset>
                 <fieldset>
                     <legend>Actividades</legend>
-                    <input type="text" name="activities" id='activities' placeholder='Buscar actividad...' onInput={handleInput} />
-                    <br />
-                    <input type="radio" name="activities" value='' onChange={handleInput} onBlur={loseFocus}/>
-                    <label htmlFor="activities">Buscar todas las actividades</label>
+                    <div className='activi-orden'>
+                    <input type='checkbox' name='activities' id='activities' onChange={hendleClick} />
+                    <label htmlFor="activities">Trae todas las actividades</label>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Orden de los paises</legend>
+                        <div className='activi-orden'>
                     <button type='button' onClick={orderByName}>{order === 'ordenAZ'? 'Ordenar Z - A' : 'Ordenar A - Z'}</button>
                     <br />
-                    <button type='button' onClick={orderByPopulation}>{order === 'Ascendente'? 'Descendente' : 'Ascendente'}</button>
+                    <button type='button' onClick={orderByPopulation}>{order === 'Asc'? 'Ordenar de mayor a menor poblacion' : 'Ordenar de menor a mayor poblacion'}</button>
+                        </div>
                 </fieldset>
             </form>
         </>

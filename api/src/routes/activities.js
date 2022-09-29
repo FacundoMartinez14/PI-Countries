@@ -4,26 +4,38 @@ const router = Router();
 const { Country, Activities, Op } = require('../db');
 
 router.get('/', async (req, res) => {
-  const {nombre} = req.query;
-  try{
-    if(nombre && nombre.length > 0){
-      const activity = await Activities.findAll({
-        where:{
-          nombre: {
-            [Op.iLike]: `%${nombre}%`
-          }
-        },
-        include: Country
-      })
-      res.status(200).json(activity)
-    }else{
-      const activity = await Activities.findAll({include: Country});
-      res.status(200).json(activity);
-    }
-  }catch(e){
-    console.log(e);
-  }
+    try{
+      const activties = await Activities.findAll({ include: Country });
+      res.json(activties);
 
+    }catch(e){
+      console.log(e)
+    }
+  }
+)
+
+router.get('/:id', async (req, res) =>{
+  const {id} = req.params;
+  try {
+    const activity = await Activities.findByPk(id, {include: Country});
+    res.status(200).json(activity)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  const {id} = req.params;
+  try{
+    await Activities.destroy({
+      where:{
+        id: id
+      }
+    });
+    res.json('Actividad borrada correctamente')
+  }catch(e){
+    console.log(e)
+  }
 })
 //hacemos un post a la ruta '/activities/
 router.post('/', async (req, res) =>{
