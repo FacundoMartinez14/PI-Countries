@@ -271,11 +271,13 @@ export default function CrearActividad() {
       </div>
       <div className="paises_remover">
         <h3>Paises seleccionados</h3>
-      {addCountry
-        ? addCountry.map((e) => (
-            <RemoveCountry key={e.id} name={e.name} flag={e.flag} />
-          ))
-        : null}
+        <div className="render-removecountries">
+        {addCountry
+          ? addCountry.map((e) => (
+              <RemoveCountry key={e.id} name={e.name} flag={e.flag} />
+            ))
+          : null}
+        </div>
       </div>
     </div>
   );

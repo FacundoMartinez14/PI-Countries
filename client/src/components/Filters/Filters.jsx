@@ -65,9 +65,20 @@ export default function Filter(){
             dispatch(sort(populationAsc));
         }
     }
+    const handleFilter = (e) => {
+        let checked = document.getElementById(e.target.id).checked;
+        const population = Number(e.target.value) 
+        const filtered = countries.filter( (c) => c.population > population) 
+        if(checked){
+            dispatch(filterAction(filtered));
+        }else{
+            dispatch(removeFilter(filtered));
+        }
+    } 
     return(
         <>
             <form className='filters'>
+                {console.log(filteredd)}
                 <fieldset >
                         <legend>Continents</legend>
                         <div>

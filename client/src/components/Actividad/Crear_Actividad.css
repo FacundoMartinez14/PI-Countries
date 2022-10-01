@@ -35,9 +35,13 @@
   line-height: 1em;
   overflow-x: hidden;
   overflow-y: scroll;
-
 }
-
+.render-removecountries{
+  height: 70%;
+  line-height: 1em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 .paises_remover{
   margin-top: 3.9em;
   width: calc(100vw/3);
