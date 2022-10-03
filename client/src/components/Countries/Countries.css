@@ -26,11 +26,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 60px;
-    grid-row-gap: 12px;
-    margin-left: 10em;
-    margin-top: 60px;
+    padding-left: 10em;
+    padding-top: 50px;
+    
 }
+
 .buscador{
     display: flex;
     align-items: center;
@@ -46,10 +46,25 @@
     color: #283618;
 }
 .countries > a{
+    padding-bottom: 40px;
+    margin-right: 40px;
+    padding-top: 30px;
     text-decoration: none;
+    animation-name: page;
+    animation-duration: 0.75s;
     color: #283618;
+    transition: 0.3s;
 }
 .countries > a:hover{
-    text-decoration: none;
-    color:#283618;
+    padding-top: 15px;
+}
+
+@keyframes page {
+   0%{
+    margin-left: 100vw;
+   }
+   100%{
+    margin-right: 40px;
+   }
+
 }

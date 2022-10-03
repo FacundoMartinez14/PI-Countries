@@ -5,10 +5,10 @@
     position: fixed;
     left: 0;
     width: 10em;
-    height: 95%;
+    height: calc(100% - 3.9em);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 25px;      
 }
@@ -18,22 +18,21 @@
     border-radius: 5px;
     border-color: #fefae0;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
     color: #fefae0;
     font-family: 'Roboto', sans-serif;
 }
-.activi-orden{
-    height: 60px;
-    color: #fefae0;
+.continents{
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .filters button{
-    height: 40px;
-    width: 90%;
+    height: 30px;
+    justify-self: center;
+    align-self: center;
+    width: 80px;
     font-size: 12px;
     background-color: #fefae0;
     border: solid 0.5px;
-    margin-bottom: 8px;
     color:#283618 ;
     transition: 0.3s;
 }

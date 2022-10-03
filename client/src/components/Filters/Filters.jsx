@@ -78,8 +78,7 @@ export default function Filter(){
     return(
         <>
             <form className='filters'>
-                {console.log(filteredd)}
-                <fieldset >
+                <fieldset className='continents'>
                         <legend>Continents</legend>
                         <div>
                             <input type="checkbox" name="oceania" id="oceania" value="Oceania"  onChange={(e) => handleChange(e, 'oceania')}  />
@@ -119,12 +118,14 @@ export default function Filter(){
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Orden de los paises</legend>
-                        <div className='activi-orden'>
-                    <button type='button' onClick={orderByName}>{order === 'ordenAZ'? 'Ordenar Z - A' : 'Ordenar A - Z'}</button>
-                    <br />
-                    <button type='button' onClick={orderByPopulation}>{order === 'Asc'? 'Ordenar de mayor a menor poblacion' : 'Ordenar de menor a mayor poblacion'}</button>
+                    <legend>Ordenar alfabeticamente</legend>
+                        <div>
+                    <button type='button' onClick={orderByName}>{order === 'ordenAZ'? 'Z - A' : 'A - Z'}</button>
                         </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Ordenar por poblacion</legend>
+                    <button type='button' onClick={orderByPopulation}>{order === 'Asc'? 'Descendente' : 'Ascendente'}</button>
                 </fieldset>
             </form>
         </>

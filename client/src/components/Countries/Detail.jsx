@@ -22,7 +22,7 @@ export function Detail(){
     return(
         <>  
         <div className='detail-country'>
-            {countries.length > 0 ? <div>
+            {countries.length > 0 ? <div className='animation'>
                 <h1>{detail.traduccion}</h1>
                 <img src={detail.flag} alt="flag" />
                 <h3>Continente: {detail.continent}</h3>
@@ -32,6 +32,7 @@ export function Detail(){
                 <h4>Superficie: {detail.area} km² </h4>
                 <h3>Actividades: </h3>
                     {detail.activities.length > 0 ? detail.activities.map( e => <div  key ={e.id}><h4 >{e.nombre}</h4></div> ) : null}
+                    <br />
             </div> : null}
         </div>
             

@@ -5,8 +5,9 @@
     padding: 15px;
     max-height: 320px;
     border-radius: 10px;
-    border: solid 1px;
+    border: solid 1px ;
     box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75);
+    transition: 0.3s;
 }
 .country h2{
     font-family: 'Roboto', sans-serif;
@@ -14,4 +15,8 @@
 .country img{
     height: 160px;
     width: 320px;
+}
+
+.country:hover{
+    box-shadow: 7px 30px 5px 0px rgba(0,0,0,0.75);
 }
