@@ -51,9 +51,9 @@
     padding-top: 30px;
     text-decoration: none;
     animation-name: page;
-    animation-duration: 0.75s;
+    animation-duration: 0.5s;
     color: #283618;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 .countries > a:hover{
     padding-top: 15px;
@@ -61,10 +61,9 @@
 
 @keyframes page {
    0%{
-    margin-left: 100vw;
+    margin-top: 100vh;
    }
    100%{
-    margin-right: 40px;
    }
 
 }

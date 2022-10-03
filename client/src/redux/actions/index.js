@@ -3,7 +3,7 @@ import axios from 'axios'
 //getCountries hace un get a la base de datos sin ningun argumento
 export const getCountries = () =>{
     return async (dispatch) => {
-    const results = await axios.get("http://localhost:3001/countries");
+    const results = await axios.get("/countries");
     return dispatch({type: 'GET_COUNTRY', payload: results.data});  
     }
 }
@@ -16,7 +16,7 @@ export const filterAction = (filtered) =>{
 export const search = (name) => {
     return async (dispatch) => {
         if(name.length > 0){
-            const result = await axios.get(`http://localhost:3001/countries?name=${name}`);
+            const result = await axios.get(`/countries?name=${name}`);
             return dispatch({type: 'BUSCAR_COUNTRY', payload: result.data})
         }else{
             return dispatch({type:'BUSCAR_COUNTRY', payload:[]})
@@ -31,7 +31,7 @@ export const prioridad = (payload) =>{
 // get activity trae todas las actividades filtradas por nombre
 export const getActivity = () =>{
         return async (dispatch) => {
-            const result = await axios.get(`http://localhost:3001/activities/`)
+            const result = await axios.get(`/activities/`)
             return dispatch({type:"BUSCAR_ACTIVIDAD", payload: result.data})
         }
     }
@@ -51,14 +51,14 @@ export const removeCountryFromActivity = (array) => {
 
 export const postActivity = (obj) => {
     return async (dispatch) =>{
-        const result = await axios.post('http://localhost:3001/activities', obj);
+        const result = await axios.post('/activities', obj);
         dispatch({type: 'POST', payload: result.data})
         return result
     }
 }
 export const deleteActivity = (id) => {
     return async (dispatch) => {
-        const result = await axios.delete(`http://localhost:3001/activities/${id}`);
+        const result = await axios.delete(`/activities/${id}`);
         return dispatch({type: 'DELETE', payload: result.data});
     }
 }
@@ -88,7 +88,7 @@ export const clean = () =>{
 
 export const getActivityId = (id) =>{
     return async (dispatch) => {
-        const result = await axios.get(`http://localhost:3001/activities/${id}`)
+        const result = await axios.get(`/activities/${id}`)
         return dispatch({type:"BUSCAR_ACTIVIDAD_BY_ID", payload: result.data})
     }
 }
