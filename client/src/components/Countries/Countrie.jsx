@@ -15,8 +15,8 @@ export default function Countrie({name, flag, continent, id, duracion, temporada
                 <h3>{temporada}</h3>
             </div>
         
-            : <div > 
-            <h2>{name}</h2>
+            : <div >                
+            {name.length > 20 ? <h4>{name}</h4> :<h2>{name}</h2>}
             <h3>{continent}</h3>
             <img src={flag} alt="bandera" />
             </div>}
